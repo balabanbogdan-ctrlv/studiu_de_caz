@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studiu de caz: Importanța utilizării Git / GitHub în echipă</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        githubGreen: '#2ea44f',
+                        githubGreenHover: '#2c974b',
+                        githubDark: '#0d1117',
+                        githubCard: '#161b22',
+                        githubBorder: '#30363d',
+                        githubTextMuted: '#8b949e',
+                        githubLink: '#58a6ff'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome pentru iconițe -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Stiluri suplimentare pentru scrollbar și efecte fine */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b949e;
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-[#c9d1d9] font-sans antialiased selection:bg-[#2ea44f] selection:text-white">
+
+    <!-- Navbar Fix -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#161b22]/90 backdrop-blur-md border-b border-[#30363d]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <a href="#hero" class="flex items-center space-x-2 text-white hover:text-githubLink transition-colors">
+                    <i class="fa-brands fa-github text-3xl text-white"></i>
+                    <span class="font-bold text-lg tracking-tight hidden sm:inline">Studiu de Caz: Git & GitHub</span>
+                </a>
+            </div>
+            <!-- Meniu Navigare Desktop -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="#introducere" class="text-[#8b949e] hover:text-white transition-colors">Introducere</a>
+                <a href="#ce-este-git" class="text-[#8b949e] hover:text-white transition-colors">Git</a>
+                <a href="#ce-este-github" class="text-[#8b949e] hover:text-white transition-colors">GitHub</a>
+                <a href="#echipa" class="text-[#8b949e] hover:text-white transition-colors">Colaborare</a>
+                <a href="#comenzi" class="text-[#8b949e] hover:text-white transition-colors">Comenzi</a>
+                <a href="#studiu-practic" class="text-[#8b949e] hover:text-white transition-colors">Pași Practici</a>
+                <a href="#resurse" class="text-[#8b949e] hover:text-white transition-colors">Resurse</a>
+            </nav>
+            <!-- Buton GitHub Exterior -->
+            <div class="flex items-center space-x-3">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-flex items-center space-x-2 bg-[#21262d] hover:bg-[#30363d] text-white text-sm font-semibold px-3 py-1.5 rounded-md border border-[#30363d] transition-all">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub.com</span>
+                </a>
+                <!-- Buton meniu mobil -->
+                <button id="mobile-menu-btn" class="md:hidden text-[#8b949e] hover:text-white focus:outline-none p-2">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Meniu mobil dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#161b22] border-b border-[#30363d] px-4 pt-2 pb-4 space-y-2">
+            <a href="#introducere" class="block text-[#8b949e] hover:text-white py-1">Introducere</a>
+            <a href="#ce-este-git" class="block text-[#8b949e] hover:text-white py-1">Ce este Git?</a>
+            <a href="#ce-este-github" class="block text-[#8b949e] hover:text-white py-1">Ce este GitHub?</a>
+            <a href="#echipa" class="block text-[#8b949e] hover:text-white py-1">Importanța în echipă</a>
+            <a href="#comenzi" class="block text-[#8b949e] hover:text-white py-1">Comenzi Git</a>
+            <a href="#studiu-practic" class="block text-[#8b949e] hover:text-white py-1">Studiu de caz practic</a>
+            <a href="#colaborare-utilizatori" class="block text-[#8b949e] hover:text-white py-1">Invitarea colegilor</a>
+            <a href="#publicare" class="block text-[#8b949e] hover:text-white py-1">GitHub Pages</a>
+            <a href="#avantaje-concluzii" class="block text-[#8b949e] hover:text-white py-1">Concluzii</a>
+            <a href="#resurse" class="block text-[#8b949e] hover:text-white py-1">Resurse</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="hero" class="pt-24">
+
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 border-b border-[#30363d] bg-gradient-to-b from-[#161b22] to-[#0d1117]">
+            <div class="max-w-5xl mx-auto text-center relative z-10">
+                <div class="inline-flex items-center space-x-2 bg-[#21262d] border border-[#30363d] rounded-full px-4 py-1 text-xs text-[#8b949e] mb-6">
+                    <span class="w-2 h-2 rounded-full bg-githubGreen animate-pulse"></span>
+                    <span>Proiect Academic / Web Development</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6">
+                    Studiu de caz: Importanța utilizării aplicațiilor de lucru în echipă <span class="text-githubGreen">GIT / GITHUB</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-[#8b949e] max-w-3xl mx-auto mb-10 leading-relaxed">
+                    Un ghid complet și practic pentru studenți despre cum să transformi dezvoltarea software individuală într-o colaborare armonioasă, sigură și eficientă prin controlul versiunilor.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#studiu-practic" class="w-full sm:w-auto bg-githubGreen hover:bg-githubGreenHover text-white font-semibold px-6 py-3 rounded-md transition-all shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-play"></i>
+                        <span>Începe Ghidul Practic</span>
+                    </a>
+                    <a href="#comenzi" class="w-full sm:w-auto bg-[#21262d] hover:bg-[#30363d] text-white font-semibold px-6 py-3 rounded-md border border-[#30363d] transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-terminal"></i>
+                        <span>Vezi Comenzile Git</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Indicator vizual etape proiect -->
+        <div class="bg-[#161b22] border-b border-[#30363d] py-4 px-4 overflow-x-auto">
+            <div class="max-w-6xl mx-auto flex items-center justify-between min-w-[700px] text-xs font-medium text-[#8b949e]">
+                <div class="flex items-center space-x-2 text-white">
+                    <span class="w-6 h-6 rounded-full bg-githubGreen text-white flex items-center justify-center font-bold text-xs">1</span>
+                    <span>Introducere & Concepte</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-gray-600"></i>
+                <div class="flex items-center space-x-2">
+                    <span class="w-6 h-6 rounded-full bg-[#21262d] border border-[#30363d] text-[#8b949e] flex items-center justify-center font-bold text-xs">2</span>
+                    <span>Inițiere & Repository</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-gray-600"></i>
+                <div class="flex items-center space-x-2">
+                    <span class="w-6 h-6 rounded-full bg-[#21262d] border border-[#30363d] text-[#8b949e] flex items-center justify-center font-bold text-xs">3</span>
+                    <span>Colaborare în Echipă</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-gray-600"></i>
+                <div class="flex items-center space-x-2">
+                    <span class="w-6 h-6 rounded-full bg-[#21262d] border border-[#30363d] text-[#8b949e] flex items-center justify-center font-bold text-xs">4</span>
+                    <span>Publicare GitHub Pages</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+            <!-- Secțiunea 1 – Introducere -->
+            <section id="introducere" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-book-open text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">1. Introducere</h2>
+                </div>
+                <article class="space-y-4 text-[#8b949e] leading-relaxed">
+                    <p>
+                        În era dezvoltării web moderne, crearea unui site sau a unei aplicații nu mai este o activitate solitară. Proiectele complexe necesită contribuția coordonată a mai multor programatori, designeri și testeri. Când doi sau mai mulți studenți încearcă să modifice aceleași fișiere folosind metode clasice (cum ar fi trimiterea arhivelor ZIP pe e-mail sau WhatsApp), apar rapid haosul, suprapunerea codului și pierderea irecuperabilă a unor funcționalități.
+                    </p>
+                    <p>
+                        Acest studiu de caz analizează importanța utilizării sistemului de control al versiunilor <strong class="text-white">Git</strong> și a platformei de găzduire <strong class="text-white">GitHub</strong>. Prin trecerea de la lucrul izolat la un flux de lucru colaborativ, echipele pot urmări fiecare modificare, pot reveni la versiuni anterioare stabile și pot construi software robust într-un mediu profesionist.
+                    </p>
+                </article>
+            </section>
+
+            <!-- Secțiunea 2 – Ce este Git? -->
+            <section id="ce-este-git" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-code-merge text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">2. Ce este Git?</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-shield-halved text-githubGreen"></i>
+                            <span>Sistem de Control al Versiunilor (VCS)</span>
+                        </h3>
+                        <p class="text-sm text-[#8b949e]">
+                            Git este un sistem distribuit de control al versiunilor creat de Linus Torvalds în 2005. El înregistrează toate modificările aduse fișierelor unui proiect de-a lungul timpului, permițând dezvoltatorilor să examineze istoricul și să revină oricând la o stare anterioară.
+                        </p>
+                    </div>
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-clock-rotate-left text-githubGreen"></i>
+                            <span>Salvarea și Revenirea (Snapshots)</span>
+                        </h3>
+                        <p class="text-sm text-[#8b949e]">
+                            Spre deosebire de sistemele vechi, Git nu salvează diferențele de text, ci face o „fotografie” (snapshot) a întregului proiect în momentele stabilite de utilizator. Astfel, dacă o modificare nouă strică site-ul web, poți reveni instantaneu la versiunea funcțională anterioară.
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-[#21262d] border border-[#30363d] rounded-lg p-5">
+                    <h4 class="font-semibold text-white mb-3">Avantajele principale ale utilizării Git:</h4>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-[#8b949e]">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-githubGreen"></i><span>Funcționare complet offline pe calculatorul local</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-githubGreen"></i><span>Istoric detaliat al fiecărei linii de cod scrise</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-githubGreen"></i><span>Ramificări (Branches) pentru testarea ideilor noi</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-githubGreen"></i><span>Siguranță maximă împotriva pierderii datelor</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Secțiunea 3 – Ce este GitHub? -->
+            <section id="ce-este-github" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-brands fa-github text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">3. Ce este GitHub?</h2>
+                </div>
+                <p class="text-[#8b949e] mb-6 leading-relaxed">
+                    Dacă <strong class="text-white">Git</strong> este unealta software instalată pe computerul tău care gestionează codul, <strong class="text-white">GitHub</strong> este o platformă bazată pe cloud care găzduiește repository-urile Git și facilitează colaborarea globală.
+                </p>
+
+                <!-- Concepte cheie -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <h4 class="font-semibold text-white mb-1">Repository (Repo)</h4>
+                        <p class="text-xs text-[#8b949e]">Dosarul sau proiectul care conține toate fișierele și istoricul lor complet de versiuni.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <h4 class="font-semibold text-white mb-1">Local vs. Remote</h4>
+                        <p class="text-xs text-[#8b949e]">Repository-ul local rulează pe PC-ul tău; cel remote este stocat pe serverele GitHub pentru a fi accesibil echipei.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <h4 class="font-semibold text-white mb-1">Colaborare Cloud</h4>
+                        <p class="text-xs text-[#8b949e]">Permite sincronizarea automată a muncii efectuate de mai mulți colegi prin intermediul internetului.</p>
+                    </div>
+                </div>
+
+                <!-- Tabel Comparativ Git vs GitHub -->
+                <h3 class="text-xl font-semibold text-white mb-4">Tabel comparativ: Git vs. GitHub</h3>
+                <div class="overflow-x-auto border border-[#30363d] rounded-lg">
+                    <table class="w-full text-left text-sm text-[#8b949e]">
+                        <thead class="bg-[#21262d] text-white uppercase text-xs">
+                            <tr>
+                                <th class="px-6 py-3">Caracteristică</th>
+                                <th class="px-6 py-3">Git</th>
+                                <th class="px-6 py-3">GitHub</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-[#30363d] bg-[#0d1117]">
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-white">Natura instrumentului</td>
+                                <td class="px-6 py-4">Software de control al versiunilor (VCS)</td>
+                                <td class="px-6 py-4">Platformă web de găzduire și colaborare</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-white">Unde rulează?</td>
+                                <td class="px-6 py-4">Local, direct pe calculatorul utilizatorului</td>
+                                <td class="px-6 py-4">Pe servere cloud (online)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-white">Dependență</td>
+                                <td class="px-6 py-4">Funcționează complet independent de internet</td>
+                                <td class="px-6 py-4">Necesită Git pentru a trimite/prelua codul</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-white">Interfață</td>
+                                <td class="px-6 py-4">Linie de comandă (Terminal / Git Bash)</td>
+                                <td class="px-6 py-4">Interfață grafică web modernă și intuitivă</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Secțiunea 4 – Importanța lucrului în echipă -->
+            <section id="echipa" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-users text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">4. Importanța lucrului în echipă prin Git & GitHub</h2>
+                </div>
+                <p class="text-[#8b949e] mb-6 leading-relaxed">
+                    Atunci când un proiect este realizat de o echipă de studenți, provocările organizatorice pot depăși dificultățile tehnice de programare. Git și GitHub oferă o structură clară care transformă munca haotică într-un flux organizat:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <div class="text-githubGreen text-xl mb-3"><i class="fa-solid fa-code-branch"></i></div>
+                        <h3 class="font-semibold text-white mb-2">Contribuții paralele</h3>
+                        <p class="text-sm text-[#8b949e]">Mai mulți utilizatori pot edita pagini diferite sau secțiuni diferite ale aceluiași proiect simultan, fără a se bloca unii pe alții.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <div class="text-githubGreen text-xl mb-3"><i class="fa-solid fa-eye"></i></div>
+                        <h3 class="font-semibold text-white mb-2">Urmărirea modificărilor</h3>
+                        <p class="text-sm text-[#8b949e]">Fiecare commit are un autor, un mesaj explicativ și un marcaj temporal. Se știe exact cine a adăugat o linie de cod și de ce.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <div class="text-githubGreen text-xl mb-3"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <h3 class="font-semibold text-white mb-2">Rezolvarea conflictelor</h3>
+                        <p class="text-sm text-[#8b949e]">Dacă doi colegi modifică exact aceeași linie, Git detectează conflictul și oferă instrumente precise pentru a decide ce variantă se păstrează.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <div class="text-githubGreen text-xl mb-3"><i class="fa-solid fa-circle-check"></i></div>
+                        <h3 class="font-semibold text-white mb-2">Verificarea codului (Code Review)</h3>
+                        <p class="text-sm text-[#8b949e]">Codul scris poate fi analizat de ceilalți colegi prin Pull Requests înainte de a fi integrat definitiv în versiunea principală.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d] md:col-span-2 lg:col-span-2">
+                        <div class="text-githubGreen text-xl mb-3"><i class="fa-solid fa-comments"></i></div>
+                        <h3 class="font-semibold text-white mb-2">Comunicare integrată</h3>
+                        <p class="text-sm text-[#8b949e]">Echipa poate urmări sarcinile prin <strong class="text-white">Issues</strong> (raportarea problemelor/taskurilor), <strong class="text-white">Pull Requests</strong> (propuneri de cod) și <strong class="text-white">Projects</strong> (panouri Kanban pentru organizare tip Agile).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secțiunea 5 – Comenzile Git esențiale -->
+            <section id="comenzi" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-terminal text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">5. Comenzile Git Esențiale</h2>
+                </div>
+                <p class="text-[#8b949e] mb-6">
+                    Pentru a lucra cu Git, se utilizează linia de comandă (Git Bash pe Windows sau Terminal pe macOS/Linux). Mai jos sunt prezentate comenzile fundamentale explicate pe secțiuni, cu exemple practice pentru începători:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Comandă 1 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git init</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Inițiere</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Inițializează un repository Git local într-un director existent.</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                            $ git init
+                        </div>
+                    </div>
+
+                    <!-- Comandă 2 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git status</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Stare</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Afișează starea curentă a fișierelor (modificate, neurmărite sau pregătite).</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                            $ git status
+                        </div>
+                    </div>
+
+                    <!-- Comandă 3 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git add index.html</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Staging</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Pregătește un anumit fișier (sau <code class="text-white">git add .</code> pentru toate) pentru salvare.</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                            $ git add index.html
+                        </div>
+                    </div>
+
+                    <!-- Comandă 4 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git commit -m "Mesaj"</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Salvare</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Salvează permanent modificările pregătite în istoricul local cu un mesaj descriptiv.</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                            $ git commit -m "Prima versiune"
+                        </div>
+                    </div>
+
+                    <!-- Comandă 5 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git branch -M main</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Ramură</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Redenumește ramura curentă în <code class="text-white">main</code> (standardul actual pe GitHub).</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                            $ git branch -M main
+                        </div>
+                    </div>
+
+                    <!-- Comandă 6 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git remote add origin URL</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Conectare</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Conectează repository-ul local la adresa URL a repository-ului remote de pe GitHub.</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white overflow-x-auto">
+                            $ git remote add origin https://github.com/utilizator/studiu.git
+                        </div>
+                    </div>
+
+                    <!-- Comandă 7 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git push -u origin main</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Încărcare</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Încarcă modificările locale pe serverul GitHub (remote).</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                            $ git push -u origin main
+                        </div>
+                    </div>
+
+                    <!-- Comandă 8 -->
+                    <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git pull</code>
+                                <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Sincronizare</span>
+                            </div>
+                            <p class="text-sm text-[#8b949e] mb-3">Descarcă și integrează ultimele modificări făcute de colegi de pe GitHub în calculatorul tău.</p>
+                        </div>
+                        <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                            $ git pull origin main
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comandă suplimentară clone -->
+                <div class="mt-6 bg-[#0d1117] border border-[#30363d] rounded-lg p-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <code class="text-githubGreen font-mono font-bold bg-[#21262d] px-2.5 py-1 rounded border border-[#30363d]">git clone URL_REPOSITORY</code>
+                        <span class="text-xs bg-[#21262d] text-[#8b949e] px-2 py-0.5 rounded">Copiere</span>
+                    </div>
+                    <p class="text-sm text-[#8b949e] mb-3">Creează o copie locală a unui repository existent pe GitHub direct pe calculatorul unui coleg nou în echipă.</p>
+                    <div class="bg-[#161b22] p-3 rounded border border-[#30363d] font-mono text-xs text-white">
+                        $ git clone https://github.com/utilizator/studiu-de-caz.git
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secțiunea 6 – Studiu de caz practic, pas cu pas -->
+            <section id="studiu-practic" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-laptop-code text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">6. Studiu de caz practic, pas cu pas</h2>
+                </div>
+                <p class="text-[#8b949e] mb-8 leading-relaxed">
+                    Să presupunem un scenariu realist în care doi studenți colaborează la realizarea unei pagini web interactive. Urmează fluxul complet de lucru, de la crearea fișierului până la publicarea pe internet.
+                </p>
+
+                <div class="space-y-6">
+                    <!-- Pasul 1 -->
+                    <div class="flex flex-col md:flex-row gap-4 bg-[#0d1117] border border-[#30363d] p-5 rounded-lg">
+                        <div class="flex-shrink-0">
+                            <span class="w-10 h-10 rounded-full bg-githubGreen text-white font-bold flex items-center justify-center">1</span>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-white mb-2">Crearea unui repository pe GitHub</h3>
+                            <p class="text-sm text-[#8b949e] mb-3">
+                                Înainte de a conecta Git local, mergi pe <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-githubLink hover:underline">GitHub.com</a>, apasă butonul <code class="text-white bg-[#21262d] px-1.5 py-0.5 rounded">New repository</code>, introdu numele <strong class="text-white">studiu-de-caz</strong>, setează-l ca Public și apasă <code class="text-white bg-[#21262d] px-1.5 py-0.5 rounded">Create repository</code>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pasul 2 -->
+                    <div class="flex flex-col md:flex-row gap-4 bg-[#0d1117] border border-[#30363d] p-5 rounded-lg">
+                        <div class="flex-shrink-0">
+                            <span class="w-10 h-10 rounded-full bg-githubGreen text-white font-bold flex items-center justify-center">2</span>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-white mb-2">Crearea fișierului index.html pe calculator</h3>
+                            <p class="text-sm text-[#8b949e] mb-3">
+                                Creează un folder nou pe desktop numit <code class="text-white bg-[#21262d] px-1.5 py-0.5 rounded">studiu-de-caz</code> și adaugă în interior fișierul <code class="text-white bg-[#21262d] px-1.5 py-0.5 rounded">index.html</code> cu structura de bază HTML5.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pasul 3 -->
+                    <div class="flex flex-col md:flex-row gap-4 bg-[#0d1117] border border-[#30363d] p-5 rounded-lg">
+                        <div class="flex-shrink-0">
+                            <span class="w-10 h-10 rounded-full bg-githubGreen text-white font-bold flex items-center justify-center">3</span>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-white mb-2">Inițializarea Git și salvarea modificărilor (Git Bash)</h3>
+                            <p class="text-sm text-[#8b949e] mb-3">
+                                Deschide Git Bash în folderul proiectului și execută următoarele comenzi în ordine:
+                            </p>
+                            <div class="bg-[#161b22] p-4 rounded border border-[#30363d] font-mono text-xs text-white space-y-2 overflow-x-auto">
+                                <p>$ git init</p>
+                                <p>$ git status</p>
+                                <p>$ git add index.html</p>
+                                <p>$ git commit -m "Prima versiune a studiului de caz"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pasul 4 -->
+                    <div class="flex flex-col md:flex-row gap-4 bg-[#0d1117] border border-[#30363d] p-5 rounded-lg">
+                        <div class="flex-shrink-0">
+                            <span class="w-10 h-10 rounded-full bg-githubGreen text-white font-bold flex items-center justify-center">4</span>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-white mb-2">Conectarea la GitHub și încărcarea codului</h3>
+                            <p class="text-sm text-[#8b949e] mb-3">
+                                Copiază adresa URL HTTPS a repository-ului creat la Pasul 1 și rulează comenziile de conectare și push (înlocuiește URL-ul cu cel real):
+                            </p>
+                            <div class="bg-[#161b22] p-4 rounded border border-[#30363d] font-mono text-xs text-white space-y-2 overflow-x-auto">
+                                <p>$ git branch -M main</p>
+                                <p>$ git remote add origin https://github.com/NUME_UTILIZATOR/studiu-de-caz.git</p>
+                                <p>$ git push -u origin main</p>
+                            </div>
+                            <p class="text-xs text-[#8b949e] mt-2 italic">Notă importantă: Repository-ul trebuie creat obligatoriu pe GitHub înainte de a rula comanda `git remote add origin`, pentru a exista destinația pe server.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secțiunea 7 – Colaborarea cu alți utilizatori -->
+            <section id="echipa-colaborare" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-user-plus text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">7. Colaborarea cu alți utilizatori</h2>
+                </div>
+                <p class="text-[#8b949e] mb-6 leading-relaxed">
+                    Pentru ca un coleg să poată contribui la același repository creat de tine, trebuie să îl adaugi ca membru colaborator:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <span class="text-githubGreen font-bold text-lg mb-2 block">01</span>
+                        <h4 class="font-semibold text-white mb-1">Setări Repository</h4>
+                        <p class="text-xs text-[#8b949e]">Deschide repository-ul pe GitHub și apasă pe tab-ul <strong class="text-white">Settings</strong>.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <span class="text-githubGreen font-bold text-lg mb-2 block">02</span>
+                        <h4 class="font-semibold text-white mb-1">Secțiunea Collaborators</h4>
+                        <p class="text-xs text-[#8b949e]">În meniul lateral din stânga, selectează <strong class="text-white">Collaborators</strong> (sau Collaborators and teams).</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <span class="text-githubGreen font-bold text-lg mb-2 block">03</span>
+                        <h4 class="font-semibold text-white mb-1">Invitarea colegului</h4>
+                        <p class="text-xs text-[#8b949e]">Apasă <strong class="text-white">Add people</strong> și introdu numele de utilizator GitHub sau e-mailul colegului tău.</p>
+                    </div>
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <span class="text-githubGreen font-bold text-lg mb-2 block">04</span>
+                        <h4 class="font-semibold text-white mb-1">Acceptarea invitației</h4>
+                        <p class="text-xs text-[#8b949e]">Colegul va primi un e-mail sau o alertă pe GitHub pentru a accepta invitația de colaborare.</p>
+                    </div>
+                </div>
+                <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5">
+                    <h4 class="font-semibold text-white mb-2">Rolul membrilor și comunicarea în echipă:</h4>
+                    <p class="text-sm text-[#8b949e] leading-relaxed">
+                        Fiecare membru al echipei își poate descărca ultima variantă de cod folosind <code class="text-white bg-[#21262d] px-1.5 py-0.5 rounded">git pull</code>, poate adăuga secțiuni noi și poate trimite modificările înapoi pe server. Este esențială comunicarea clară prin mesaje descriptive la commit-uri și prin secțiunea de Issues pentru a nu edita simultan aceeași secțiune de cod.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Secțiunea 8 – Publicarea site-ului cu GitHub Pages -->
+            <section id="publicare" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-globe text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">8. Publicarea site-ului cu GitHub Pages</h2>
+                </div>
+                <p class="text-[#8b949e] mb-6 leading-relaxed">
+                    Unul dintre marile avantaje ale GitHub este funcția <strong class="text-white">GitHub Pages</strong>, care permite găzduirea gratuită a paginilor web statice direct dintr-un repository. Pașii necesari sunt:
+                </p>
+                <ol class="list-decimal list-inside space-y-3 text-sm text-[#8b949e] mb-8 bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                    <li>Accesează repository-ul tău pe <strong class="text-white">GitHub.com</strong>.</li>
+                    <li>Mergi la tab-ul <strong class="text-white">Settings</strong> din partea superioară.</li>
+                    <li>În meniul din stânga, caută secțiunea <strong class="text-white">Pages</strong> (în subcategoria Code and automation).</li>
+                    <li>La secțiunea <strong class="text-white">Build and deployment</strong> → <span class="text-white">Branch</span>, selectează ramura <code class="text-white bg-[#21262d] px-1.5 py-0.5 rounded">main</code> și folderul <code class="text-white bg-[#21262d] px-1.5 py-0.5 rounded">/ (root)</code>.</li>
+                    <li>Apasă butonul <strong class="text-white">Save</strong>. După câteva secunde, reîncarcă pagina și vei vedea linkul public generat.</li>
+                </ol>
+
+                <!-- Butoane acțiune conform cerințelor -->
+                <div class="flex flex-col sm:flex-row gap-4 items-center justify-center pt-2">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-[#21262d] hover:bg-[#30363d] text-white font-semibold px-6 py-3 rounded-md border border-[#30363d] transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-github"></i>
+                        <span>Deschide proiectul pe GitHub (Link exemplu)</span>
+                    </a>
+                    <a href="https://lbodlev888.github.io/studiu-de-caz/?authuser=0" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-githubGreen hover:bg-githubGreenHover text-white font-semibold px-6 py-3 rounded-md transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span>Vezi pagina publicată (Exemplu de referință)</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Secțiunea 9 – Avantaje, dezavantaje și concluzii -->
+            <section id="avantaje-concluzii" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-lightbulb text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">9. Avantaje, dezavantaje și concluzii</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center space-x-2">
+                            <i class="fa-solid fa-thumbs-up text-githubGreen"></i>
+                            <span>Avantaje majore</span>
+                        </h3>
+                        <ul class="space-y-2 text-sm text-[#8b949e]">
+                            <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-githubGreen mt-1"></i><span>Siguranță absolută a datelor (istoric salvat în cloud).</span></li>
+                            <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-githubGreen mt-1"></i><span>Colaborare impecabilă în echipă, fără riscul suprascrierii accidentale a muncii colegilor.</span></li>
+                            <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-githubGreen mt-1"></i><span>Portofoliu profesional vizibil pentru viitorii angajatori.</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-[#0d1117] p-5 rounded-lg border border-[#30363d]">
+                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center space-x-2">
+                            <i class="fa-solid fa-triangle-exclamation text-yellow-500"></i>
+                            <span>Dificultăți posibile pentru începători</span>
+                        </h3>
+                        <ul class="space-y-2 text-sm text-[#8b949e]">
+                            <li class="flex items-start space-x-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i><span>Curba de învățare inițială a liniei de comandă poate părea dificilă.</span></li>
+                            <li class="flex items-start space-x-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i><span>Conflictele de cod apărute la editarea simultană necesită atenție la rezolvare.</span></li>
+                            <li class="flex items-start space-x-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i><span>Gestionarea greșită a credentialelor sau a token-urilor de acces.</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-[#21262d] border border-[#30363d] rounded-lg p-5">
+                    <h3 class="text-lg font-semibold text-white mb-2">Concluzie</h3>
+                    <p class="text-sm text-[#8b949e] leading-relaxed">
+                        Controlul versiunilor cu Git și GitHub nu este doar o opțiune tehnică, ci o competență esențială în industria IT actuală. Pentru studenții la Web Development, utilizarea corectă a acestor instrumente disciplinează procesul de creație, oferă transparență în proiectele de grup și asigură tranziția de la un nivel academic la standarde profesionale de dezvoltare software.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Secțiunea 10 – Resurse utile -->
+            <section id="resurse" class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 sm:p-8 shadow-md">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-[#21262d] text-githubGreen rounded-lg border border-[#30363d]">
+                        <i class="fa-solid fa-link text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">10. Resurse utile și referințe</h2>
+                </div>
+                <p class="text-[#8b949e] mb-6">
+                    Pentru a aprofunda cunoștințele despre Git, GitHub și tehnicile moderne de lucru în echipă, recomandăm consultarea documentației oficiale:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="https://docs.github.com/en/get-started" target="_blank" rel="noopener noreferrer" class="bg-[#0d1117] hover:border-githubLink p-4 rounded-lg border border-[#30363d] transition-all flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white group-hover:text-githubLink transition-colors text-sm">GitHub Docs: Get Started</h4>
+                            <p class="text-xs text-[#8b949e] mt-1">Ghidul oficial pentru începători</p>
+                        </div>
+                        <i class="fa-solid fa-external-link text-[#8b949e] group-hover:text-githubLink"></i>
+                    </a>
+                    <a href="https://docs.github.com/en" target="_blank" rel="noopener noreferrer" class="bg-[#0d1117] hover:border-githubLink p-4 rounded-lg border border-[#30363d] transition-all flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white group-hover:text-githubLink transition-colors text-sm">GitHub Docs (General)</h4>
+                            <p class="text-xs text-[#8b949e] mt-1">Documentație completă GitHub</p>
+                        </div>
+                        <i class="fa-solid fa-external-link text-[#8b949e] group-hover:text-githubLink"></i>
+                    </a>
+                    <a href="https://www.w3schools.com/git/git_remote_getstarted.asp?remote=github" target="_blank" rel="noopener noreferrer" class="bg-[#0d1117] hover:border-githubLink p-4 rounded-lg border border-[#30363d] transition-all flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white group-hover:text-githubLink transition-colors text-sm">W3Schools Git Remote</h4>
+                            <p class="text-xs text-[#8b949e] mt-1">Tutoriale interactive Git & GitHub</p>
+                        </div>
+                        <i class="fa-solid fa-external-link text-[#8b949e] group-hover:text-githubLink"></i>
+                    </a>
+                    <a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/about-projects" target="_blank" rel="noopener noreferrer" class="bg-[#0d1117] hover:border-githubLink p-4 rounded-lg border border-[#30363d] transition-all flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white group-hover:text-githubLink transition-colors text-sm">GitHub Projects</h4>
+                            <p class="text-xs text-[#8b949e] mt-1">Planificare și urmărire taskuri</p>
+                        </div>
+                        <i class="fa-solid fa-external-link text-[#8b949e] group-hover:text-githubLink"></i>
+                    </a>
+                    <a href="https://docs.github.com/en/copilot/using-github-copilot/asking-github-copilot-questions-in-github" target="_blank" rel="noopener noreferrer" class="bg-[#0d1117] hover:border-githubLink p-4 rounded-lg border border-[#30363d] transition-all flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white group-hover:text-githubLink transition-colors text-sm">GitHub Copilot</h4>
+                            <p class="text-xs text-[#8b949e] mt-1">Asistență AI în dezvoltare</p>
+                        </div>
+                        <i class="fa-solid fa-external-link text-[#8b949e] group-hover:text-githubLink"></i>
+                    </a>
+                    <a href="https://lbodlev888.github.io/studiu-de-caz/?authuser=0" target="_blank" rel="noopener noreferrer" class="bg-[#0d1117] hover:border-githubLink p-4 rounded-lg border border-[#30363d] transition-all flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white group-hover:text-githubLink transition-colors text-sm">Exemplu de Referință</h4>
+                            <p class="text-xs text-[#8b949e] mt-1">Proiect public online</p>
+                        </div>
+                        <i class="fa-solid fa-external-link text-[#8b949e] group-hover:text-githubLink"></i>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Buton Scroll to Top -->
+        <div class="fixed bottom-6 right-6 z-40">
+            <button id="scrollToTopBtn" class="bg-[#21262d] hover:bg-[#30363d] text-white p-3 rounded-full border border-[#30363d] shadow-lg transition-all opacity-0 pointer-events-none focus:outline-none" aria-label="Înapoi sus">
+                <i class="fa-solid fa-arrow-up"></i>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer Profesional -->
+    <footer class="bg-[#161b22] border-t border-[#30363d] mt-20 py-10 text-[#8b949e] text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <i class="fa-brands fa-github text-2xl text-white"></i>
+                <span class="font-semibold text-white">Studiu de caz: Git & GitHub în echipă</span>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-white font-medium">Dezvoltat pentru Web Development</p>
+                <p class="text-xs mt-1">Student: <span class="text-white bg-[#21262d] px-2 py-0.5 rounded border border-[#30363d]">Balaban Bogdan</span> | Grupa: <span class="text-white bg-[#21262d] px-2 py-0.5 rounded border border-[#30363d]">Grupa: AAW2341</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript simplu pentru interactivități mici -->
+    <script>
+        // Meniu mobil toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Închide meniul la selectarea unui link pe mobil
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Buton Scroll to Top
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
